@@ -28,7 +28,7 @@ export const routes: Routes = [
     {
         path: 'product-details/:id/:slug',
         loadComponent: () => import('./features/product-details/product-details.component')
-            .then(c => c.ProductDetailsComponent)
+            .then(c => c.ProductDetailsComponent), data: { renderMode: 'client' }
     },
     {
         path: 'categories',
@@ -38,7 +38,7 @@ export const routes: Routes = [
     {
         path: 'categories/:id',
         loadComponent: () => import('./features/subcategories/subcategories.component')
-            .then(c => c.SubcategoriesComponent)
+            .then(c => c.SubcategoriesComponent), data: { renderMode: 'client' }
     },
     {
         path: 'forgot-password',
@@ -53,7 +53,7 @@ export const routes: Routes = [
     {
         path: 'checkout/:cartId',
         loadComponent: () => import('./features/checkout/checkout.component')
-            .then(c => c.CheckoutComponent), canActivate: [authGuard]
+            .then(c => c.CheckoutComponent), canActivate: [authGuard], data: { renderMode: 'client' }
     },
     {
         path: 'allorders',
