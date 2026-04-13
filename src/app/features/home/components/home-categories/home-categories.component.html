@@ -1,0 +1,29 @@
+<section class="px-8">
+  <div class="mb-8">
+    <app-section-title
+      [mainText]="'Shop By'"
+      [highlight]="'Category'"
+      [sideText]="'View All Categories'"
+    ></app-section-title>
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+    @for (category of categoriesList(); track category._id) {
+      <a
+        class="bg-white rounded-lg p-4 text-center shadow-sm hover:shadow-md transition group cursor-pointer"
+        [routerLink]="['/categories', category._id]"
+        ><div
+          class="h-20 w-20 overflow-hidden bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-green-200 transition"
+        >
+          <img
+            [alt]="category.name"
+            width="300"
+            height="300"
+            class="w-full h-full object-cover"
+            [src]="category.image"
+          />
+        </div>
+        <h3 class="font-medium">{{ category.name }}</h3>
+      </a>
+    }
+  </div>
+</section>

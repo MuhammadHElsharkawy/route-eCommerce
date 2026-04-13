@@ -1,0 +1,52 @@
+<section class="bg-[#F9FAFB80]">
+  <div>
+    <app-gradient-header
+      bgFrom="from-[#16A34A]"
+      bgVia="via-[#22C55E]"
+      bgTo="to-[#4ADE80]"
+      [linksArr]="['home']"
+      currentPage="Categories"
+      title="All Categories"
+      desc="Browse our wide range of product categories"
+      icon="fa-layer-group"
+    ></app-gradient-header>
+  </div>
+  @if (isLoading()) {
+    <div class="flex justify-center items-center py-20">
+      <div class="text-center">
+        <i class="fa-solid fa-spinner animate-spin text-4xl text-green-600 mb-4"></i>
+        <p class="text-gray-500">Loading categories...</p>
+      </div>
+    </div>
+  } @else {
+    <div class="container mx-auto px-4 py-10">
+      <div
+        class="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6"
+      >
+        @for (cat of allCategories(); track cat._id) {
+          <a
+            [routerLink]="['/categories', cat._id]"
+            class="border border-[#F3F4F6] bg-white group rounded-2xl p-4 shadow-sm hover:shadow-xl hover:border-green-200 transition-all duration-300 hover:-translate-y-1"
+          >
+            <div class="aspect-square rounded-xl overflow-hidden bg-gray-50 mb-4">
+              <img
+                class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                [src]="cat.image"
+                [alt]="cat.name"
+              />
+            </div>
+            <h3 class="font-bold text-center mb-2 group-hover:text-[#16A34A] transition">
+              {{ cat.name }}
+            </h3>
+            <p
+              class="text-xs font-medium text-[#16A34A] flex items-center gap-1 justify-center opacity-0 group-hover:opacity-100 transition"
+            >
+              View Subcategories
+              <i class="fa-solid fa-arrow-right"></i>
+            </p>
+          </a>
+        }
+      </div>
+    </div>
+  }
+</section>

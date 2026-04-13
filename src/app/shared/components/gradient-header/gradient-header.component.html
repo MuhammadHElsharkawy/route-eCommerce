@@ -1,0 +1,31 @@
+<header [class]="'bg-linear-to-br  ' + bgFrom() + ' ' + bgVia() + ' ' + bgTo()">
+  <div class="container mx-auto h-56 py-14 px-4">
+    <div class="flex items-center gap-2 text-sm font-medium mb-6">
+      @for (link of linksArr(); track $index) {
+        <a [routerLink]="'/' + link" class="text-[#FFFFFFB2] hover:text-white transition capitalize">{{
+          link
+        }}</a>
+        <span class="text-[#FFFFFF66]">/</span>
+      }
+
+      <!-- <a routerLink="/home" class="text-[#FFFFFFB2]">Home</a> -->
+      <span class="text-white">{{ currentPage() }}</span>
+    </div>
+    <div class="flex items-center gap-5">
+      <div
+        class="w-16 h-16 flex justify-center items-center bg-[#FFFFFF33] rounded-2xl shadow-[0px_8px_10px_-6px_#0000001A,0px_20px_25px_-5px_#0000001A,0px_0px_0px_1px_#FFFFFF4D]"
+      >
+        @if (icon()) {
+          <i [class]="'fa-solid  text-3xl text-white ' + icon()"></i>
+        }
+        @if (img()) {
+          <img [src]="img()" class="w-10 h-10 object-contain" alt="" />
+        }
+      </div>
+      <div class="">
+        <h1 class="text-4xl font-bold text-white">{{ title() }}</h1>
+        <p class="font-medium text-[#FFFFFFCC]">{{ desc() }}</p>
+      </div>
+    </div>
+  </div>
+</header>

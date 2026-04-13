@@ -1,0 +1,47 @@
+<div class="space-y-2">
+  <div class="flex items-center justify-between">
+    @if (inputLabel()) {
+      <label [for]="inputId()" [class]="'font-medium text-[#364153] block'">{{
+        inputLabel()
+      }}</label>
+    }
+    @if (forgotPassword()) {
+      <a
+        routerLink="/forgot-password"
+        class="text-sm text-green-600 hover:text-green-700 font-medium"
+        >Forgot Password?</a
+      >
+    }
+  </div>
+  @if (inputIcon()) {
+    <div class="relative">
+      <div class="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
+        <i class="{{ inputIcon() }} text-[#99A1AF]"></i>
+      </div>
+      <input
+        [type]="inputType()"
+        [id]="inputId()"
+        [type]="inputType()"
+        [class]="
+        inputClasses() +
+        ' ' +
+        'w-full ps-12 pe-4 focus:ring-green-500 placeholder:text-[#36415380] placeholder:font-medium'
+        "
+        [placeholder]="inputPlaceHolder()"
+        [formControl]="formField"
+      />
+    </div>
+  } @else {
+    <input
+      [id]="inputId()"
+      [type]="inputType()"
+      [class]="
+        inputClasses() +
+        ' ' +
+        'w-full px-4 focus:ring-green-500 placeholder:text-[#36415380] placeholder:font-medium'
+      "
+      [placeholder]="inputPlaceHolder()"
+      [formControl]="formField"
+    />
+  }
+</div>

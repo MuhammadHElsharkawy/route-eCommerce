@@ -1,0 +1,75 @@
+<section class="space-y-8">
+  <div class="text-center">
+    <div class="mb-4 text-3xl font-bold">
+      <span class="text-[#16A34A]">Fresh</span>
+      Cart
+    </div>
+    <h2 class="text-2xl font-bold mb-2">Forgot Password?</h2>
+    <p class="text-[#4A5565] font-medium">Enter the 6-digit code sent to <span class="font-semibold">{{userEmail() || ''}}</span></p>
+  </div>
+  <div class="flex items-center justify-center">
+    <div class="flex items-center">
+      <div
+        class="w-10 h-10 rounded-full bg-[#16A34A] flex items-center justify-center"
+      >
+        <i class="fa-solid fa-check text-white"></i>
+      </div>
+      <div class="w-16 h-0.5 bg-[#16A34A] mx-2"></div>
+    </div>
+    <div class="flex items-center">
+      <div class="w-10 h-10 rounded-full bg-[#16A34A] flex items-center justify-center shadow-[0px_0px_0px_4px_#DCFCE7]">
+        <i class="fa-solid fa-key text-white"></i>
+      </div>
+      <div class="w-16 h-0.5 bg-[#E5E7EB] mx-2"></div>
+    </div>
+    <div class="flex items-center">
+      <div class="w-10 h-10 rounded-full bg-[#F3F4F6] flex items-center justify-center">
+        <i class="fa-solid fa-lock text-[#99A1AF]"></i>
+      </div>
+    </div>
+  </div>
+  <form [formGroup]="parentForm()" (ngSubmit)="handleClick()" class="space-y-6">
+    <div>
+      <label for="code" class="text-sm font-semibold text-[#364153] mb-2 block">Verification Code</label>
+        <div class="relative">
+            <div class="absolute top-1/2 -translate-y-1/2 left-4 pointer-events-none">
+                <i class="fa-solid fa-shield-halved text-[#99A1AF]"></i>
+            </div>
+            <input
+            id="code"
+            formControlName="resetCode"
+            type="tel"
+            maxlength="6"
+            placeholder="••••••"
+            class="w-full px-4 py-3 pl-12 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all text-center text-2xl tracking-[0.5em] font-mono placeholder:text-[#36415380]">
+        </div>
+    </div>
+    <div class="flex items-center justify-center">
+      <p class="text-sm font-medium text-[#6A7282]">
+        Didn't receive the code? 
+        <button class="font-semibold text-[#16A34A] cursor-pointer" (click)="resendCode()">Resend Code</button>
+      </p>
+    </div>
+    <div>
+      <button
+        [disabled]="parentForm().invalid || isLoading()"
+        class="bg-[#16A34A] rounded-[8px] text-white text-lg font-semibold w-full py-2 cursor-pointer hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-no-drop"
+      >
+        @if (isLoading()) {
+          <i class="fa-solid fa-spinner animate-spin me-2"></i>
+          <span>Verifing...</span>
+        } @else {
+          <span>Verify Code</span>
+        }
+      </button>
+    </div>
+    <div class="w-full flex justify-center">
+      <button
+      (click)="goBack()"
+      class="flex justify-center items-center gap-2 text-sm font-medium text-[#6A7282] cursor-pointer hover:text-gray-700 transition">
+        <i class="fa-solid fa-arrow-left"></i>
+        Change email address
+      </button>
+    </div>
+  </form>
+</section>

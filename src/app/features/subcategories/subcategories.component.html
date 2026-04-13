@@ -1,0 +1,61 @@
+<section class="bg-[#FBFCFD]">
+  <div>
+    <app-gradient-header
+      [linksArr]="['home', 'categories']"
+      currentPage="Mobile"
+      bgFrom="from-green-600"
+      bgTo="via-green-500"
+      bgTo="to-green-400"
+      [img]="category()?.image!"
+    ></app-gradient-header>
+  </div>
+  @if (isLoading()) {
+    <div class="flex justify-center items-center py-20">
+      <div class="text-center">
+        <i class="fa-solid fa-spinner animate-spin text-4xl text-green-600 mb-4"></i>
+        <p class="text-gray-500">Loading subCategories...</p>
+      </div>
+    </div>
+  } @else {
+    <section>
+      <div class="container mx-auto px-4 py-10">
+        <a
+          routerLink="/categories"
+          class="inline-flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors mb-6"
+        >
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Back to Categories</span>
+        </a>
+        <h2 class="text-lg font-bold text-gray-900 mb-6">
+          {{ allSubCategories().length }} Subcategories in {{ category()?.name }}
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          @for (sub of allSubCategories(); track sub._id) {
+            <a
+              [routerLink]="['/products']"
+              [queryParams]="{ subcategory: sub._id}"
+              class="group bg-white rounded-2xl border border-gray-100 p-6 shadow-sm hover:shadow-xl hover:border-green-200 transition-all duration-300 hover:-translate-y-1"
+            >
+              <div
+                class="w-14 h-14 rounded-xl bg-green-50 flex items-center justify-center mb-4 group-hover:bg-green-100 transition-colors"
+              >
+                <i class="fa-solid fa-folder-open text-2xl text-green-600"></i>
+              </div>
+              <h3
+                class="font-bold text-gray-900 text-lg group-hover:text-green-600 transition-colors mb-2"
+              >
+                {{ sub.name }}
+              </h3>
+              <p
+                class="flex items-center gap-2 text-sm text-green-600 opacity-0 group-hover:opacity-100 transition-opacity"
+              >
+                <span>Browse Products</span>
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+              </p>
+            </a>
+          }
+        </div>
+      </div>
+    </section>
+  }
+</section>

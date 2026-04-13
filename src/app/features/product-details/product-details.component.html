@@ -1,0 +1,490 @@
+<section class="p-4">
+  <div class="container mx-auto">
+    <section class="flex flex-col lg:flex-row gap-8 mb-14">
+      <div class="lg:w-1/4">
+        <div
+          class="p-4 sticky top-0 shadow-[0_1px_2px_-1px_rgba(0,0,0,0.1),0_1px_3px_0px_rgba(0,0,0,0.1)] rounded-xl"
+        >
+          <div class="aspect-square w-full mb-4 flex justify-center items-center overflow-hidden">
+            <img
+              class="max-h-full object-contain transition-transform"
+              [src]="mainImg()"
+              [alt]="productData()?.title"
+            />
+          </div>
+          <div
+            class="flex justify-center gap-2 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar pb-2"
+          >
+            @for (img of productData()?.images; track $index) {
+              <div
+                (click)="scrollIntoView($event)"
+                (click)="changeCoverImg(img)"
+                class="flex-none cursor-pointer snap-center transition-all"
+              >
+                <img class="w-25" [src]="img" [alt]="productData()?.title" />
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="lg:w-3/4">
+        <div class="p-6 shadow-sm rounded-xl">
+          <div class="text-xs font-medium mb-4">
+            <a href="" class="bg-green-50 text-green-700 py-1.5 px-3 rounded-full me-2">
+              {{ productData()?.category?.name }}
+            </a>
+            <span class="bg-[#F3F4F6] text-[#364153] py-1.5 px-3 rounded-full">
+              {{ productData()?.brand?.name }}
+            </span>
+          </div>
+          <h1 class="text-2xl lg:text-3xl font-bold mb-3">{{ productData()?.title }}</h1>
+          <app-rating-stars
+            [ratingsAverage]="productData()?.ratingsAverage"
+            [ratingsQuantity]="productData()?.ratingsQuantity"
+          ></app-rating-stars>
+          <div class="text-3xl/9 font-bold mt-4 mb-6">{{ productData()?.price }} EGP</div>
+          <div class="mb-6">
+            <span class="py-1.5 px-3 rounded-full text-[#008236] bg-[#F0FDF4] text-sm font-medium">
+              <i class="fa-solid fa-circle text-2xs text-[#00C950] mr-1.5"></i>
+              In Stock
+            </span>
+          </div>
+          <div class="pt-5 border-t border-[#F3F4F6] font-medium mb-6">
+            {{ productData()?.description }}
+          </div>
+          <div class="text-sm">
+            <div class="text-[#364153] mb-2">Quantity</div>
+            <div class="flex items-center gap-4 mb-6">
+              <div class="border-2 border-[#E5E7EB] rounded-[8px] flex items-center">
+                <button
+                  class="p-4 cursor-pointer text-gray-600 hover:bg-gray-100 hover:text-green-600 transition disabled:opacity-50"
+                >
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+                <span class="">
+                  <input class="w-16 text-center border-0" type="number" value="1" />
+                </span>
+                <button
+                  class="p-4 cursor-pointer text-gray-600 hover:bg-gray-100 hover:text-green-600 transition disabled:opacity-50"
+                >
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+              <span class="text-[#6A7282] font-medium"
+                >{{ productData()?.quantity }} available</span
+              >
+            </div>
+            <div class="bg-[#F9FAFB] p-4 rounded-[8px] flex items-center justify-between mb-6">
+              <p class="font-medium text-[#4A5565]">Total Price:</p>
+              <p class="text-2xl font-bold text-[#16A34A]">{{ productData()?.price }} EGP</p>
+            </div>
+            <div class="flex items-center justify-between flex-col sm:flex-row gap-3 mb-6">
+              <button
+                (click)="AddToCart(productData()?._id!)"
+                class="w-full py-3.5 px-6 rounded-xl text-white font-medium cursor-pointer hover:bg-green-700 transition active:scale-[0.98] bg-[#16A34A] shadow-[0_4px_6px_-4px_rgba(22,163,74,0.25),0_10px_15px_-3px_rgba(22,163,74,0.25)]"
+              >
+                @if (isLoading()) {
+                  <i class="fa-solid fa-spinner animate-spin"></i>
+                }
+                @if (done()) {
+                  <i class="fa-solid fa-check"></i>
+                  Added to cart
+                }
+                @if (!isLoading() && !done()) {
+                  <i class="fa-solid fa-cart-shopping me-2"></i>
+                  Add to Cart
+                }
+              </button>
+              <button
+                class="w-full py-3.5 px-6 rounded-xl text-white font-medium cursor-pointer hover:bg-gray-800 transition active:scale-[0.98] bg-[#101828]"
+              >
+                <i class="fa-solid fa-bolt me-2"></i>
+                Buy Now
+              </button>
+            </div>
+            <div class="mb-6">
+              <button
+                class="px-4 py-3 rounded-xl border-2 border-[#E5E7EB] w-full cursor-pointer text-[#364153] font-medium hover:border-green-300 hover:text-green-600 transition"
+              >
+                <i class="fa-regular fa-heart me-2"></i>
+                Add to Wishlist
+              </button>
+            </div>
+            <div
+              class="pt-6 border-t border-[#F3F4F6] flex flex-col sm:flex-row items-center gap-4"
+            >
+              <div class="w-full flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[#DCFCE7] flex items-center justify-center">
+                  <i class="fa-solid fa-truck-fast text-[#16A34A]"></i>
+                </div>
+                <div class="">
+                  <p class="text-[#101828] text-sm font-medium">Free Delivery</p>
+                  <p class="text-[#6A7282] text-xs font-medium">Orders over $50</p>
+                </div>
+              </div>
+              <div class="w-full flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[#DCFCE7] flex items-center justify-center">
+                  <i class="fa-solid fa-rotate-left text-[#16A34A]"></i>
+                </div>
+                <div class="">
+                  <p class="text-[#101828] text-sm font-medium">30 Days Return</p>
+                  <p class="text-[#6A7282] text-xs font-medium">Money back</p>
+                </div>
+              </div>
+              <div class="w-full flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[#DCFCE7] flex items-center justify-center">
+                  <i class="fa-solid fa-shield-halved text-[#16A34A]"></i>
+                </div>
+                <div class="">
+                  <p class="text-[#101828] text-sm font-medium">Secure Payment</p>
+                  <p class="text-[#6A7282] text-xs font-medium">100% Protected</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="rounded-[8px] shadow-sm mb-18">
+      <div class="flex items-center border-b border-[#E5E7EB] overflow-auto">
+        <button
+          (click)="changeTab('details')"
+          [class]="{
+            'text-green-600': activeTab() == 'details',
+            'bg-[#F7FEF9]': activeTab() == 'details',
+            'border-b-2': activeTab() == 'details',
+            'border-green-600': activeTab() == 'details',
+          }"
+          class="flex items-center shrink-0 gap-2 py-4 px-6 cursor-pointer font-medium hover:text-green-600 transition-all"
+        >
+          <i class="fa-solid fa-box"></i>
+          Product Details
+        </button>
+        <button
+          (click)="changeTab('reviews')"
+          [class]="{
+            'text-green-600': activeTab() == 'reviews',
+            'bg-[#F7FEF9]': activeTab() == 'reviews',
+            'border-b-2': activeTab() == 'reviews',
+            'border-green-600': activeTab() == 'reviews',
+          }"
+          class="flex items-center shrink-0 gap-2 py-4 px-6 cursor-pointer text-[#4A5565] hover:text-green-600 transition-all font-medium"
+        >
+          <i class="fa-solid fa-star"></i>
+          Reviews (18)
+        </button>
+        <button
+          (click)="changeTab('shipping')"
+          [class]="{
+            'text-green-600': activeTab() == 'shipping',
+            'bg-[#F7FEF9]': activeTab() == 'shipping',
+            'border-b-2': activeTab() == 'shipping',
+            'border-green-600': activeTab() == 'shipping',
+          }"
+          class="flex items-center shrink-0 gap-2 py-4 px-6 cursor-pointer text-[#4A5565] hover:text-green-600 transition-all font-medium"
+        >
+          <i class="fa-solid fa-truck"></i>
+          Shipping & Returns
+        </button>
+      </div>
+      <div
+        class="p-6"
+        [class]="{
+          block: activeTab() == 'details',
+          hidden: activeTab() != 'details',
+        }"
+      >
+        <h3 class="text-lg font-semibold text-gray-900 mb-3">About this Product</h3>
+        <p class="text-[#4A5565] font-medium mb-6">
+          {{ productData()?.description }}
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-[#F9FAFB] p-4 rounded-[8px]">
+            <h4 class="font-medium text-gray-800 mb-3">Product Information</h4>
+            <ul class="space-y-2">
+              <li class="flex justify-between text-sm font-medium">
+                <span class="text-[#6A7282]">Category</span>
+                <span class="text-[#101828] font-medium text-right">{{
+                  productData()?.category?.name
+                }}</span>
+              </li>
+              <li class="flex justify-between text-sm font-medium">
+                <span class="text-[#6A7282]">Subcategory</span>
+                <span class="text-[#101828] font-medium text-right">{{
+                  productData()?.subcategory?.name
+                }}</span>
+              </li>
+              <li class="flex justify-between text-sm font-medium">
+                <span class="text-[#6A7282]">Brand</span>
+                <span class="text-[#101828] font-medium text-right">{{
+                  productData()?.brand?.name
+                }}</span>
+              </li>
+              <li class="flex justify-between text-sm font-medium">
+                <span class="text-[#6A7282]">Items Sold</span>
+                <span class="text-gray-800 font-medium text-right"
+                  >{{ productData()?.sold }} sold</span
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="bg-[#F9FAFB] p-4 rounded-[8px]">
+            <h4 class="font-medium text-gray-800 mb-3">Key Features</h4>
+            <ul class="space-y-2">
+              <li class="flex items-center gap-2 text-sm font-medium text-[#4A5565]">
+                <i class="fa-solid fa-check text-green-500"></i> Premium Quality Product
+              </li>
+              <li class="flex items-center gap-2 text-sm font-medium text-[#4A5565]">
+                <i class="fa-solid fa-check text-green-500"></i> 100% Authentic Guarantee
+              </li>
+              <li class="flex items-center gap-2 text-sm font-medium text-[#4A5565]">
+                <i class="fa-solid fa-check text-green-500"></i> Fast & Secure Packaging
+              </li>
+              <li class="flex items-center gap-2 text-sm font-medium text-[#4A5565]">
+                <i class="fa-solid fa-check text-green-500"></i> Quality Tested
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div
+        class="p-6"
+        [class]="{
+          block: activeTab() == 'reviews',
+          hidden: activeTab() != 'reviews',
+        }"
+      >
+        <div class="flex flex-col md:flex-row items-start md:items-center gap-8 mb-6">
+          <div class="text-center">
+            <div class="text-5xl font-bold text-gray-900 mb-2">
+              {{ productData()?.ratingsAverage }}
+            </div>
+            <app-rating-stars
+              [massage]="'long'"
+              [row]="false"
+              [ratingsAverage]="productData()?.ratingsAverage"
+              [ratingsQuantity]="productData()?.ratingsQuantity"
+            ></app-rating-stars>
+          </div>
+          <div class="flex w-full flex-col gap-2">
+            <div class="flex items-center gap-3 w-full">
+              <span class="text-sm text-gray-600 w-8">
+                5 <br />
+                star
+              </span>
+              <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  class="h-full bg-yellow-400 rounded-full transition-all duration-300"
+                  style="width: 25%"
+                ></div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 w-full">
+              <span class="text-sm text-gray-600 w-8">
+                4 <br />
+                star
+              </span>
+              <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  class="h-full bg-yellow-400 rounded-full transition-all duration-300"
+                  style="width: 25%"
+                ></div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 w-full">
+              <span class="text-sm text-gray-600 w-8">
+                3 <br />
+                star
+              </span>
+              <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  class="h-full bg-yellow-400 rounded-full transition-all duration-300"
+                  style="width: 25%"
+                ></div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 w-full">
+              <span class="text-sm text-gray-600 w-8">
+                2 <br />
+                star
+              </span>
+              <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  class="h-full bg-yellow-400 rounded-full transition-all duration-300"
+                  style="width: 25%"
+                ></div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 w-full">
+              <span class="text-sm text-gray-600 w-8">
+                1 <br />
+                star
+              </span>
+              <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  class="h-full bg-yellow-400 rounded-full transition-all duration-300"
+                  style="width: 25%"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-200 pt-6">
+          <div class="text-center py-8">
+            <div class="mb-3">
+              <i class="fa-solid fa-star text-4xl text-gray-300"></i>
+            </div>
+            <p class="text-gray-500 font-medium mb-4">Customer reviews will be displayed here.</p>
+            <button
+              class="cursor-pointer text-green-600 font-medium hover:text-green-700 transition"
+            >
+              Write a Review
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="p-6"
+        [class]="{
+          block: activeTab() == 'shipping',
+          hidden: activeTab() != 'shipping',
+        }"
+      >
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div class="bg-linear-to-br from-green-50 to-green-100 rounded-lg p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <div
+                class="h-12 w-12 bg-green-600 text-white rounded-full flex items-center justify-center"
+              >
+                <i class="fa-solid fa-truck"></i>
+              </div>
+              <h4 class="font-semibold text-gray-900">Shipping Information</h4>
+            </div>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-2 text-sm text-gray-700">
+                <span class="mt-0.5">
+                  <i class="fa-solid fa-check text-green-600"></i>
+                </span>
+                <span class="text-[#364153] text-sm font-medium"
+                  >Free shipping on orders over $50</span
+                >
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-700">
+                <span class="mt-0.5">
+                  <i class="fa-solid fa-check text-green-600"></i>
+                </span>
+                <span class="text-[#364153] text-sm font-medium"
+                  >Standard delivery: 3-5 business days</span
+                >
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-700">
+                <span class="mt-0.5">
+                  <i class="fa-solid fa-check text-green-600"></i>
+                </span>
+                <span class="text-[#364153] text-sm font-medium"
+                  >Express delivery available (1-2 business days)</span
+                >
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-700">
+                <span class="mt-0.5">
+                  <i class="fa-solid fa-check text-green-600"></i>
+                </span>
+                <span class="text-[#364153] text-sm font-medium"
+                  >Track your order in real-time</span
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="bg-linear-to-br from-green-50 to-green-100 rounded-lg p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <div
+                class="h-12 w-12 bg-green-600 text-white rounded-full flex items-center justify-center"
+              >
+                <i class="fa-solid fa-rotate-left"></i>
+              </div>
+              <h4 class="font-semibold text-gray-900">Returns & Refunds</h4>
+            </div>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-2 text-sm text-gray-700">
+                <span class="mt-0.5">
+                  <i class="fa-solid fa-check text-green-600"></i>
+                </span>
+                <span class="text-[#364153] text-sm font-medium">30-day hassle-free returns</span>
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-700">
+                <span class="mt-0.5">
+                  <i class="fa-solid fa-check text-green-600"></i>
+                </span>
+                <span class="text-[#364153] text-sm font-medium"
+                  >Full refund or exchange available</span
+                >
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-700">
+                <span class="mt-0.5">
+                  <i class="fa-solid fa-check text-green-600"></i>
+                </span>
+                <span class="text-[#364153] text-sm font-medium"
+                  >Free return shipping on defective items</span
+                >
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-700">
+                <span class="mt-0.5">
+                  <i class="fa-solid fa-check text-green-600"></i>
+                </span>
+                <span class="text-[#364153] text-sm font-medium">Easy online return process</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="bg-gray-50 rounded-lg p-6 flex items-center gap-4">
+          <div
+            class="h-14 w-14 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center shrink-0"
+          >
+            <i class="fa-solid fa-shield-halved text-2xl"></i>
+          </div>
+          <div class="">
+            <h4 class="font-semibold text-gray-900 mb-1">Buyer Protection Guarantee</h4>
+            <p class="text-sm text-gray-600">
+              Get a full refund if your order doesn't arrive or isn't as described. We ensure your
+              shopping experience is safe and secure.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="px-4">
+      <div class="flex justify-between items-center mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-1.5 h-8 rounded-full bg-linear-to-b from-[#00BC7D] to-[#007A55]"></div>
+          <p class="text-2xl font-bold">
+            You May Also
+            <span class="text-[rgba(0,153,102,1)]">Like</span>
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button
+            (click)="swiperLeft()"
+            class="w-10 h-10 rounded-full bg-[#F3F4F6] text-[#4A5565] cursor-pointer hover:bg-green-100 hover:text-green-600 transition"
+          >
+            <i class="fa-solid fa-angle-left"></i>
+          </button>
+          <button
+            (click)="swiperRight()"
+            class="w-10 h-10 rounded-full bg-[#F3F4F6] text-[#4A5565] cursor-pointer hover:bg-green-100 hover:text-green-600 transition"
+          >
+            <i class="fa-solid fa-angle-right"></i>
+          </button>
+        </div>
+      </div>
+      <section class="relative mb-10">
+        <swiper-container #homeSwiper class="mySwiper">
+          @for (product of categoryProducts(); track product._id) {
+            <swiper-slide class="details">
+              <app-product-card [product]="product"></app-product-card>
+            </swiper-slide>
+          }
+        </swiper-container>
+      </section>
+    </section>
+  </div>
+</section>

@@ -1,0 +1,208 @@
+<section class="py-10">
+  <div class="container mx-auto">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 p-4">
+      <div class="my-auto">
+        <div
+          class="rounded-2xl overflow-hidden mb-6 shadow-[0px_4px_6px_-4px_#0000001A,0px_10px_15px_-3px_#0000001A]"
+        >
+          <img class="w-full h-96 object-cover" src="images/login.png" alt="" />
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-3xl font-bold px-4.5 text-center">
+            FreshCart - Your One-Stop Shop for Fresh Products
+          </h2>
+          <p class="text-[#4A5565] text-lg font-medium text-center mx-4.5">
+            Join thousands of happy customers who trust FreshCart for their daily grocery needs
+          </p>
+          <div class="flex items-center justify-center gap-8">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-truck text-[#16A34A]"></i>
+              <span class="text-[#6A7282] text-sm font-medium">Free Delivery</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-truck text-[#16A34A]"></i>
+              <span class="text-[#6A7282] text-sm font-medium">Secure Payment</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-clock text-[#16A34A]"></i>
+              <span class="text-[#6A7282] text-sm font-medium">24/7 Support</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bg-white rounded-2xl py-10 px-6 shadow-[0px_4px_6px_-4px_#0000001A,0px_10px_15px_-3px_#0000001A]"
+      >
+        <div class="text-center text-3xl font-bold mb-4">
+          Fresh<span class="text-[#16A34A]">Cart</span>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-800 mb-2 text-center">Welcome Back!</h1>
+        <p class="font-medium text-[#4A5565] mb-8 text-center">
+          Sign in to continue your fresh shopping experience
+        </p>
+        <div class="flex flex-col items-center justify-between gap-2">
+          <button
+            class="py-3 px-4 rounded-[8px] border-2 border-[#E5E7EB] w-full cursor-pointer hover:border-green-300 hover:bg-green-50 transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <i class="fa-brands fa-google text-[#E7000B] me-2"></i>
+            <span class="font-medium text-[#101828]">Continue with Google</span>
+          </button>
+          <button
+            class="py-3 px-4 rounded-[8px] border-2 border-[#E5E7EB] w-full cursor-pointer hover:border-green-300 hover:bg-green-50 transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <i class="fa-brands fa-facebook me-2 text-[#155DFC]"></i>
+            <span class="font-medium text-[#101828]">Continue with Facebook</span>
+          </button>
+        </div>
+        <div class="flex items-center justify-between gap-4 my-6">
+          <div class="bg-[#D1D5DC4D] h-0.5 w-full"></div>
+          <div class="font-medium text-sm text-[#6A7282] w-full">OR CONTINUE WITH EMAIL</div>
+          <div class="bg-[#D1D5DC4D] h-0.5 w-full"></div>
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="login()" class="space-y-7 py-2">
+          <div>
+            <app-input-field
+              inputId="email"
+              inputType="email"
+              inputLabel="Email address"
+              inputIcon="fa-solid fa-envelope"
+              inputPlaceHolder="Enter your email"
+              [control]="loginForm.get('email')!"
+              styleType="login"
+            ></app-input-field>
+            <!-- <label for="email" class="text-sm font-semibold text-gray-700 mb-2 block">Email</label>
+            <div class="relative">
+              <div class="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                <i class="fa-solid fa-envelope text-[#99A1AF]"></i>
+              </div>
+              <input
+                formControlName="email"
+                type="email"
+                id="email"
+                placeholder="muhammad@example.com"
+                class="py-2.5 ps-12 pe-3 rounded-sm border border-[#99A1AF66] w-full focus:ring-green-600 placeholder:text-[#36415380] font-medium"
+              />
+            </div> -->
+            @let emailControl = loginForm.get('email');
+            <div class="text-rose-600 text-xs mt-1 font-medium">
+              @if (emailControl?.errors && emailControl?.touched) {
+                @if (emailControl?.getError('required')) {
+                  <p class="">Email is required.</p>
+                }
+                @if (emailControl?.getError('email')) {
+                  <p>Please enter a valid email address.</p>
+                }
+              }
+            </div>
+          </div>
+          <div>
+            <div class="">
+              <div class="mb-2">
+                <label for="password" class="block text-sm font-semibold text-gray-700">
+                  Password
+                </label>
+              </div>
+              <div class="relative">
+                <input
+                  class="w-full px-4 py-3 pl-12 pr-12 border-2 border-gray-200 rounded-xl focus:ring-green-500 placeholder:text-[#36415380] placeholder:font-medium transition-all"
+                  [type]="passwordShown() ? 'text' : 'password'"
+                  id="password"
+                  formControlName="password"
+                  placeholder="Enter your password"
+                />
+                <i
+                  class="fa-solid fa-lock absolute top-1/2 left-4 -translate-y-1/2 text-gray-400 pointer-events-none"
+                ></i>
+                <button
+                  (click)="togglePassword()"
+                  class="cursor-pointer absolute top-1/2 -translate-y-1/2 right-4 text-gray-400 hover:text-gray-600"
+                >
+                  @if (passwordShown()) {
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-eye-off-icon lucide-eye-off"
+                    >
+                      <path
+                        d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"
+                      />
+                      <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" />
+                      <path
+                        d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"
+                      />
+                      <path d="m2 2 20 20" />
+                    </svg>
+                  } @else {
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-eye-icon lucide-eye"
+                    >
+                      <path
+                        d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
+                      />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                  }
+                </button>
+              </div>
+            </div>
+            <div class="text-rose-600 text-xs mt-1 font-medium">
+              @let passwordControl = loginForm.get('password');
+              @if (passwordControl?.errors && passwordControl?.touched) {
+                @if (passwordControl?.getError('required')) {
+                  <p class="">Password is required.</p>
+                }
+                @if (passwordControl?.getError('minlength')) {
+                  <p>Password must be at least 8 characters</p>
+                }
+              }
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <input
+              id="box"
+              type="checkbox"
+              class="text-green-600 border border-[#767676] rounded-[2.5px] focus:ring-gray-300 cursor-pointer"
+            />
+            <label for="box" class="text-sm font-medium text-[#364153]">Keep me signed in</label>
+          </div>
+          <button
+            [disabled]="loginForm.invalid || isLoading()"
+            class="bg-[#16A34A] rounded-[8px] text-white text-lg font-semibold w-full py-2 cursor-pointer hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-no-drop"
+          >
+            @if (isLoading()) {
+              <i class="fa-solid fa-spinner animate-spin me-2"></i>
+              <span>Signing in...</span>
+            } @else {
+              <span>Sign In</span>
+            }
+          </button>
+          <div>
+            <div>
+              <app-login-massege
+                massege="New to FreshCart?"
+                desicion="Create an account"
+                goTo="/register"
+              ></app-login-massege>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

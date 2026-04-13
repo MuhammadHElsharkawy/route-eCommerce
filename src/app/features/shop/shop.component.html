@@ -1,0 +1,69 @@
+<section class="bg-[#F9FAFB80]">
+  <app-gradient-header
+    bgFrom="from-[#16A34A]"
+    bgVia="via-[#22C55E] "
+    bgTo="to-[#4ADE80]"
+    [linksArr]="['home']"
+    [currentPage]="headerData()?.title"
+    [title]="headerData()?.title"
+    [icon]="aSubcategory() ? 'fa-folder-open' : headerData()?.icon || null"
+    [img]="aSubcategory() ? null : headerData()?.image || null"
+    [desc]="headerData()?.description"
+  ></app-gradient-header>
+
+  <div class="container mx-auto px-4 py-8">
+    <div class="mb-6 flex items-center gap-3 flex-wrap" [class.hidden]="productType() == 'all'">
+      <span class="flex items-center gap-2 text-sm text-gray-600">
+        <i class="fa-solid fa-filter"></i>
+        Active Filters:
+      </span>
+      <a
+        routerLink="/products"
+        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-100 text-violet-700 text-sm font-medium hover:bg-violet-200 transition-colors"
+      >
+        <i class="fa-solid fa-tags text-sm"></i>
+        {{ aCategory()?.name || aBrand()?.name }}
+        <i class="fa-solid fa-xmark text-xs"></i>
+      </a>
+      <a routerLink="/products" class="text-sm text-gray-500 hover:text-gray-700 underline">
+        Clear all
+      </a>
+    </div>
+    <p class="text-[#6A7282] text-sm font-medium mb-6">
+      Showing {{ productList().length }} products
+    </p>
+    @if (productList().length == 0 && !isLoading()) {
+      <div class="text-center py-20">
+        <div
+          class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-5"
+        >
+          <i class="fa-solid fa-box-open text-3xl text-gray-400"></i>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">No Products Found</h3>
+        <p class="text-gray-500 mb-6">No products match your current filters.</p>
+        <a
+          routerLink="/products"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors"
+        >
+          View All Products
+        </a>
+      </div>
+    }
+
+    @if (isLoading()) {
+      <div class="flex justify-center items-center py-20">
+        <div class="text-center">
+          <i class="fa-solid fa-spinner animate-spin text-4xl text-green-600 mb-4"></i>
+          <p class="text-gray-500">Loading products...</p>
+        </div>
+      </div>
+    }
+    <section
+      class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6"
+    >
+      @for (product of productList(); track product._id) {
+        <app-product-card [product]="product"></app-product-card>
+      }
+    </section>
+  </div>
+</section>

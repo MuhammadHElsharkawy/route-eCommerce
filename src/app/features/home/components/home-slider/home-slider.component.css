@@ -1,0 +1,5 @@
+swiper-slide {
+    background-image: linear-gradient(to right, #00c758e6, #05df7280), url(/images/homeslider.png);
+    background-position: center;
+    background-size: cover;
+}

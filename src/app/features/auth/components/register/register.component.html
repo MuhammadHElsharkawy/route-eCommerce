@@ -1,0 +1,249 @@
+<section class="py-10">
+  <div class="container mx-auto">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 p-4">
+      <div class="">
+        <h1 class="text-4xl font-bold text-[#364153] mb-2">
+          Welcome to <span class="text-[#16A34A]">FreshCart</span>
+        </h1>
+        <p class="text-xl font-medium text-[#364153] mb-2">
+          Join thousands of happy customers who enjoy fresh groceries delivered right to their
+          doorstep.
+        </p>
+        <div class="py-6 space-y-6 mb-2">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full flex justify-center items-center bg-[#BBF7D0]">
+              <i class="fa-solid fa-star text-[#16A34A]"></i>
+            </div>
+            <div class="">
+              <h2 class="text-[#364153] text-lg font-semibold">Premium Quality</h2>
+              <p class="text-[#4A5565] font-medium">
+                Premium quality products sourced from trusted suppliers.
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full flex justify-center items-center bg-[#BBF7D0]">
+              <i class="fa-solid fa-truck-fast text-[#16A34A]"></i>
+            </div>
+            <div class="">
+              <h2 class="text-[#364153] text-lg font-semibold">Fast Delivery</h2>
+              <p class="text-[#4A5565] font-medium">Same-day delivery available in most areas</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full flex justify-center items-center bg-[#BBF7D0]">
+              <i class="fa-solid fa-shield-halved text-[#16A34A]"></i>
+            </div>
+            <div class="">
+              <h2 class="text-[#364153] text-lg font-semibold">Secure Shopping</h2>
+              <p class="text-[#4A5565] font-medium">Your data and payments are completely secure</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 shadow-sm rounded-md">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-full overflow-hidden">
+              <img src="images/sarah.png" alt="" />
+            </div>
+            <div class="">
+              <h3 class="text-[#364153] font-medium">Sarah Johnson</h3>
+              <div>
+                <i class="fa-solid fa-star text-[#FFDF20]"></i>
+                <i class="fa-solid fa-star text-[#FFDF20]"></i>
+                <i class="fa-solid fa-star text-[#FFDF20]"></i>
+                <i class="fa-solid fa-star text-[#FFDF20]"></i>
+                <i class="fa-solid fa-star text-[#FFDF20]"></i>
+              </div>
+            </div>
+          </div>
+          <p class="font-medium italic text-[#4A5565]">
+            "FreshCart has transformed my shopping experience. The quality of the products is
+            outstanding, and the delivery is always on time. Highly recommend!"
+          </p>
+        </div>
+      </div>
+      <div
+        class="bg-white rounded-2xl py-10 px-6 shadow-[0px_4px_6px_-4px_#0000001A,0px_10px_15px_-3px_#0000001A]"
+      >
+        <h2 class="text-3xl font-semibold text-[#364153] mb-2 text-center">Create Your Account</h2>
+        <p class="font-medium text-[#364153] mb-2 text-center">
+          Start your fresh journey with us today
+        </p>
+        <div class="py-8 flex items-center justify-between gap-2">
+          <button
+            class="py-2 px-4 rounded-[8px] border border-[#D1D5DC] w-full cursor-pointer hover:bg-gray-100 transition disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <i class="fa-brands fa-google text-[#E7000B] me-2"></i>
+            <span class="font-medium text-[#101828]">Google</span>
+          </button>
+          <button
+            class="py-2 px-4 rounded-[8px] border border-[#D1D5DC] w-full cursor-pointer hover:bg-gray-100 transition disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <i class="fa-brands fa-facebook me-2 text-[#155DFC]"></i>
+            <span class="font-medium text-[#101828]">Facebook</span>
+          </button>
+        </div>
+        <div class="flex items-center justify-between gap-4">
+          <div class="bg-[#D1D5DC4D] h-0.5 w-full"></div>
+          <div class="font-medium text-[#364153]">or</div>
+          <div class="bg-[#D1D5DC4D] h-0.5 w-full"></div>
+        </div>
+        <form [formGroup]="registerForm" (ngSubmit)="register()" class="space-y-7 py-2">
+          <div class="">
+            <app-input-field
+              styleType="register"
+              inputId="name"
+              inputType="text"
+              inputLabel="Name*"
+              labelClass="text-base font-medium"
+              inputPlaceHolder="Muhammad"
+              [control]="registerForm.get('name')!"
+            ></app-input-field>
+            @let nameControl = registerForm.get('name');
+            <div class="text-rose-600 text-xs mt-1 font-medium">
+              @if (nameControl?.errors && nameControl?.touched) {
+                @if (nameControl?.getError('required')) {
+                  <p class="">Name is required.</p>
+                }
+                @if (nameControl?.getError('minlength')) {
+                  <p class="">Name must be at least 2 characters.</p>
+                }
+              }
+            </div>
+          </div>
+          <div class="">
+            <app-input-field
+              styleType="register"
+              inputId="email"
+              inputType="email"
+              inputLabel="Email*"
+              labelClass="text-base font-medium"
+              inputPlaceHolder="muhammad@example.com"
+              [control]="registerForm.get('email')!"
+            ></app-input-field>
+            @let emailControl = registerForm.get('email');
+            <div class="text-rose-600 text-xs mt-1 font-medium">
+              @if (emailControl?.errors && emailControl?.touched) {
+                @if (emailControl?.getError('required')) {
+                  <p class="">Email is required.</p>
+                }
+                @if (emailControl?.getError('email')) {
+                  <p>Please enter a valid email address.</p>
+                }
+              }
+            </div>
+          </div>
+          <div class="">
+            <app-input-field
+              styleType="register"
+              inputId="password"
+              inputType="password"
+              inputLabel="Password*"
+              labelClass="text-base font-medium"
+              inputPlaceHolder="create a strong password"
+              [control]="registerForm.get('password')!"
+            ></app-input-field>
+            <div class="text-rose-600 text-xs mt-1 font-medium">
+              @let passwordControl = registerForm.get('password');
+              @if (passwordControl?.errors && passwordControl?.touched) {
+                @if (passwordControl?.getError('required')) {
+                  <p class="">Password is required.</p>
+                }
+                @if (passwordControl?.getError('pattern')) {
+                  <p>Password must include uppercase, lowercase, number, and special character.</p>
+                }
+              }
+            </div>
+          </div>
+          <div class="">
+            <app-input-field
+              styleType="register"
+              inputId="rePassword"
+              inputType="password"
+              inputLabel="Confirm Password**"
+              labelClass="text-base font-medium"
+              inputPlaceHolder="confirm your password"
+              [control]="registerForm.get('rePassword')!"
+            ></app-input-field>
+            <div class="text-rose-600 text-xs mt-1">
+              @let rePasswordControl = registerForm.get('rePassword');
+              @if (rePasswordControl?.errors && rePasswordControl?.touched) {
+                @if (rePasswordControl?.getError('required')) {
+                  <p>Please confirm your password.</p>
+                }
+              }
+              @if (
+                registerForm.hasError('passwordMatch') &&
+                rePasswordControl?.touched &&
+                !rePasswordControl?.getError('required')
+              ) {
+                <p>Passwords do not match.</p>
+              }
+            </div>
+          </div>
+          <div class="">
+            <app-input-field
+              styleType="register"
+              inputId="phone"
+              inputType="tel"
+              inputLabel="Phone Number*"
+              labelClass="text-base font-medium"
+              inputPlaceHolder="+1 234 567 8900"
+              [control]="registerForm.get('phone')!"
+            ></app-input-field>
+            @let phoneControl = registerForm.get('phone');
+            <div class="text-rose-600 text-xs mt-1 font-medium">
+              @if (phoneControl?.errors && phoneControl?.touched) {
+                @if (phoneControl?.getError('required')) {
+                  <p class="">phone is required.</p>
+                }
+                @if (phoneControl?.getError('pattern')) {
+                  <p>Please enter a valid phone number.</p>
+                }
+              }
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <input
+                (input)="test()"
+                formControlName="agree"
+                type="checkbox"
+                class="text-green-600 border border-[#767676] rounded-[2.5px] focus:ring-gray-300 cursor-pointer"
+              />
+              <p class="font-medium text-[#364153]">
+                I agree to the <span class="text-[#16A34A]">Terms of Service</span> and
+                <span class="text-[#16A34A]">Privacy Policy</span> *
+              </p>
+            </div>
+            @if (registerForm.get('agree')?.errors && registerForm.get('agree')?.touched) {
+              <p class="text-red-500 mt-1 text-sm font-medium">
+                *You must accept the terms and conditions
+              </p>
+            }
+          </div>
+          <button
+            [disabled]="registerForm.invalid || isLoading()"
+            class="bg-[#16A34A] rounded-[8px] text-white font-semibold w-full py-2 cursor-pointer hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-no-drop"
+          >
+            @if (isLoading()) {
+              <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+              <span>Creating Account...</span>
+            }
+            @if (!isLoading()) {
+              <span>Create My Account</span>
+              <i class="fa-solid fa-user-plus me-2"></i>
+            }
+          </button>
+        </form>
+        <div>
+          <app-login-massege
+            massege="Already have an account?"
+            desicion="Sign In"
+            goTo="/login"
+          ></app-login-massege>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

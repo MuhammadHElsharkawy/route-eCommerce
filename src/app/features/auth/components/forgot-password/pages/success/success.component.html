@@ -1,0 +1,25 @@
+<section>
+  <div class="text-center mb-8">
+    <div class="flex items-center justify-center mb-4">
+      <span class="text-3xl font-bold text-green-600">
+        Fresh<span class="text-gray-800">Cart</span>
+      </span>
+    </div>
+  </div>
+  <div class="text-center space-y-6">
+    <div class="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto">
+      <i class="fa-solid fa-check text-green-600 text-3xl"></i>
+    </div>
+    <div class="">
+      <h2 class="text-2xl font-bold text-gray-800 mb-2">Password Reset!</h2>
+      <p class="text-gray-600">
+        Your password has been successfully reset. You can now sign in with your new password.
+      </p>
+    </div>
+    <button
+    (click)="goToSignIn()"
+    class="w-full bg-green-600 text-white py-3 px-4 rounded-xl hover:bg-green-700 transition-all duration-200 font-semibold text-lg shadow-lg hover:shadow-xl cursor-pointer">
+        Back to Sign In
+    </button>
+  </div>
+</section>

@@ -1,0 +1,31 @@
+<section
+  class="flex items-center gap-2"
+  [class]="{
+    'flex-row': row(),
+    'flex-col': !row(),
+  }"
+>
+  <div class="text-[#FCC800]">
+    @if (fullStarts() > 0) {
+      @for (item of [].constructor(fullStarts()); track $index) {
+        <i class="fa-solid fa-star"></i>
+      }
+    }
+    @if (isFractionStar()) {
+      <i class="fa-regular fa-star-half-stroke"></i>
+    }
+    @if (emptyStarts() > 0) {
+      @for (item of [].constructor(emptyStarts()); track $index) {
+        <i class="fa-regular fa-star"></i>
+      }
+    }
+  </div>
+  <div class="text-[#4A5565] text-sm font-medium">
+    @if(massage() == 'short') {
+      {{ ratingsAverage() }} ({{ ratingsQuantity() }} reviews)
+    }
+    @else if (massage() == 'long') {
+      Based on {{ratingsQuantity()}} reviews
+    }
+  </div>
+</section>

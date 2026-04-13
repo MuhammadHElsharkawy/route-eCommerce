@@ -1,0 +1,52 @@
+<section>
+  <div class="bg-[#F9FAFB80]">
+    <div class="py-8 container mx-auto px-4">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <div class="w-full lg:w-72 shrink-0">
+          <div class="bg-white rounded-2xl border border-[#F3F4F6] shadow-sm overflow-hidden">
+            <div class="border-b border-[#F3F4F6] p-4 font-bold">My Account</div>
+            <div class="p-2">
+              <a
+                routerLinkActive="active bg-[#F0FDF4]"
+                routerLink="/profile/addresses"
+                class="py-3 px-4 rounded-xl flex items-center gap-3 group"
+              >
+                <div
+                  class="w-9 h-9 flex items-center justify-center shrink-0 rounded-[8px] bg-[#F3F4F6] group-[.active]:bg-[#22C55E]"
+                >
+                  <i class="fa-solid fa-location-dot text-[#6A7282] group-[.active]:text-white"></i>
+                </div>
+                <p class="font-medium w-full group-[.active]:text-[#15803D]">My Addresses</p>
+                <div class="">
+                  <i
+                    class="fa-solid fa-angle-right text-[#99A1AF] group-[.active]:text-[#22C55E]"
+                  ></i>
+                </div>
+              </a>
+              <a
+                routerLinkActive="active bg-[#F0FDF4]"
+                routerLink="/profile/settings"
+                class="py-3 px-4 rounded-xl flex items-center gap-3 group"
+              >
+                <div
+                  class="w-9 h-9 flex items-center justify-center shrink-0 rounded-[8px] bg-[#F3F4F6] group-[.active]:bg-[#22C55E]"
+                >
+                  <i class="fa-solid fa-gear text-[#6A7282] group-[.active]:text-white"></i>
+                </div>
+                <p class="font-medium w-full group-[.active]:text-[#15803D]">Settings</p>
+                <div class="">
+                  <i
+                    class="fa-solid fa-angle-right text-[#99A1AF] group-[.active]:text-[#22C55E]"
+                  ></i>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="flex-1 min-w-0">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
